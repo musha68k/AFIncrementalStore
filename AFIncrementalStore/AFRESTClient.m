@@ -126,10 +126,6 @@ static NSString * AFQueryByAppendingParameters(NSString *query, NSDictionary *pa
     }
 }
 
-- (NSString *)pathForEntity:(NSEntityDescription *)entity {
-    return AFPluralizedString(entity.name);
-}
-
 - (NSString *)pathForObject:(NSManagedObject *)object {
     NSString *resourceIdentifier = AFResourceIdentifierFromReferenceObject([(NSIncrementalStore *)object.objectID.persistentStore referenceObjectForObjectID:object.objectID]);
     return [[self pathForEntity:object.entity] stringByAppendingPathComponent:[resourceIdentifier lastPathComponent]];
