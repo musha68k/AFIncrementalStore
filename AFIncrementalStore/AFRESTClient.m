@@ -112,6 +112,20 @@ static NSString * AFQueryByAppendingParameters(NSString *query, NSDictionary *pa
 
 @implementation AFRESTClient
 
+@synthesize entityPrefix = _entityPrefix;
+
+- (NSString *)pathForEntity:(NSEntityDescription *)entity {
+    // Map local entity name to REST resource
+    if (self.entityPrefix) {
+        NSError *error = nil;
+        NSRegularExpression *prefixRegex = [NSRegularExpression regularExpressionWithPattern:[@"^" stringByAppendingString:self.entityPrefix] options:NSRegularExpressionCaseInsensitive error:&error];
+        NSString *resourceName = [prefixRegex stringByReplacingMatchesInString:entity.name options:0 range:NSMakeRange(0, [entity.name length]) withTemplate:@""];
+        return AFPluralizedString(resourceName);
+    } else {
+        return AFPluralizedString(entity.name);
+    }
+}
+
 - (NSString *)pathForEntity:(NSEntityDescription *)entity {
     return AFPluralizedString(entity.name);
 }

@@ -36,6 +36,13 @@
  */
 @property (nonatomic, strong) id <AFPaginator> paginator;
 
+/**
+ The Core Data model/class name prefix to be removed.
+ 
+ @discussion In case of differring local model/class and remote REST resource names the prefix gets removed before accessing the corresponding REST resource.
+ */
+@property (nonatomic, strong) NSString *entityPrefix;
+
 ///------------------------
 /// @name Determining Paths
 ///------------------------
